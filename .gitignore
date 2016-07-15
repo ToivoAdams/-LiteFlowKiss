@@ -1,0 +1,7 @@
+# Maven packages/etc
+/target/
+
+# Eclipse project
+.classpath
+.project
+.settings/
