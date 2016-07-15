@@ -52,7 +52,7 @@ public class RunnableComponent extends SequentialActivity {
 		InspectResult inspectResult = inspect(componentClazz);
 		
 		this.methodInvoker = Modifier.addLogging(MethodInvokerSequential.class, executionContext, logFactory)
-				.newInstance(inputQueueLength, executionContext, logFactory, executorService, componentClazz);
+				.newInstance(inputQueueLength, executionContext, logFactory, executorService, componentClazz, inspectResult.withoutExplicitOutputPort);
 
 		correlators = new Correlator[inspectResult.entryPoints.length];
 		int i = 0;

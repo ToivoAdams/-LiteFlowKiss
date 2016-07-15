@@ -66,7 +66,7 @@ public class DistributorOutput<T> extends NamedOutput<T> {
 
 	public void distribute(T data, RequestContext requestContext) {
 		for (Destination destination : destinations) {
-			DataMessage<?> outDataMessage = new DataMessage<>(rcc.getRequestContext(), destination.destinationName, data);		
+			DataMessage<?> outDataMessage = new DataMessage<>(requestContext, destination.destinationName, data);		
 			destination.consumer.enqueue(outDataMessage);
 		}
 	}

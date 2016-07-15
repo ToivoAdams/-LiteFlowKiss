@@ -29,19 +29,15 @@ import lite.log.api.LogFactory;
  * @author ToivoAdams
  *
  */
-@Deprecated // correct method name can't be found this way
 public class SimpleLogFactory implements LogFactory {
 
-	
-	
+		
 	private volatile AtomicLong idgen = new AtomicLong(0);
-//	private final Context context;
 	
 	public final Logger log = Logger.getLogger("XLogger");	
 	
 	public SimpleLogFactory() {
 		super();
-//		this.context = context;
 	}
 
 	@Override

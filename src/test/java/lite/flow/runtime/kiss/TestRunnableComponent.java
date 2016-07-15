@@ -62,7 +62,7 @@ public class TestRunnableComponent {
 		}	
 	}
 	
-//	@Test
+	@Test
 	public void testOutput() throws ReflectiveOperationException, InterruptedException {
 		ExecutorService executorService = Executors.newFixedThreadPool(6);
 		FlowExecutionContext executionContext = new FlowExecutionContext(null, "stringSplitter");
@@ -73,7 +73,6 @@ public class TestRunnableComponent {
 		runComp.addDestination("outB", new TestConsumer("outB"), "outB");
 		
 		executorService.execute(runComp);
-//		long cid = DataMessage.idgen.getAndIncrement();
 		boolean result = runComp.enqueue(new DataMessage<>(ctx, "str", "11;8"));
 		assertTrue("enqueue result should be true", result);
 
@@ -88,10 +87,9 @@ public class TestRunnableComponent {
 		SimpleRequestContext ctx = new SimpleRequestContext();
 
 		RunnableComponent runComp = new RunnableComponent(20, executionContext, logFactory, Adder.class, executorService);
-		runComp.addDestination("any", new TestConsumer("any"), "any");
+		runComp.addDestination("number", new TestConsumer("number"), "number");
 		
 		executorService.execute(runComp);
-//		long cid = DataMessage.idgen.getAndIncrement();
 		boolean result 	= runComp.enqueue(new DataMessage<>(ctx, "a", 7));
 		assertTrue("enqueue result should be true", result);
 		result 			= runComp.enqueue(new DataMessage<>(ctx, "b", 9));

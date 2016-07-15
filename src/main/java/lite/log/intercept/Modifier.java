@@ -18,6 +18,8 @@ package lite.log.intercept;
 import static net.bytebuddy.matcher.ElementMatchers.*;
 
 import java.lang.reflect.Constructor;
+import java.util.Arrays;
+import java.util.Objects;
 
 import org.apache.commons.lang3.reflect.ConstructorUtils;
 
@@ -39,6 +41,7 @@ public class Modifier<T> {
 	
 	public Modifier(Class<T> modifiedClazz) {
 		super();
+		Objects.requireNonNull(modifiedClazz, "modifiedClazz should not be null");
 		this.modifiedClazz = modifiedClazz;
 	}
 
@@ -83,7 +86,8 @@ public class Modifier<T> {
 		}
 		
 		Constructor<T> constructor = ConstructorUtils.getMatchingAccessibleConstructor(modifiedClazz, parameterTypes);
+		Objects.requireNonNull(constructor, modifiedClazz.getSimpleName() + " constructor not found, parameterTypes: " + Arrays.toString(parameterTypes));
 		return constructor.newInstance(initargs);
 	}
-	
+
 }
