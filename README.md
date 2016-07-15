@@ -5,6 +5,6 @@ LiteFlowKiss contains simple runtime for LiteFlow.
 Can be used for testing, experimenting and also as production runtime. 
 <br><br>
 
-![ExampleFlow](../../../tree/master/LiteFlowApi/docs/images/ConvertAddNumbersFlow.png)
+![ExampleFlow](../../../LiteFlowApi/tree/master/docs/images/ConvertAddNumbersFlow.png)
 <br>
 Very simple flow example.
