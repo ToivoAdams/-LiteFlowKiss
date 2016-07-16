@@ -14,7 +14,6 @@ import lite.flow.api.flow.define.Activity;
 import lite.flow.api.flow.define.Component;
 import lite.flow.api.flow.define.Connection;
 import lite.flow.api.flow.define.Flow;
-import lite.flow.runtime.kiss.DistributorOutput.Destination;
 import lite.flow.runtime.kiss.data.DCMessage;
 import lite.flow.runtime.kiss.data.DataMessage;
 import lite.log.api.ExecutionContext;
