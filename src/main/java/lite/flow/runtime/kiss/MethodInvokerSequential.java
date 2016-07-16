@@ -131,7 +131,7 @@ public class MethodInvokerSequential extends SequentialActivity {
 					// We must send output value here.
 					String outputName = collectedMethodParametersRow.entryPoint.outputName;
 					if (actvityOutputs.containsKey(outputName)==false)
-						throw new IllegalArgumentException("Activity don't have output: " + outputName);
+						throw new IllegalArgumentException("Activity " + componentClazz.getName() + " output " + outputName + " not created");
 					
 					DistributorOutput<Object> output = (DistributorOutput<Object>) actvityOutputs.get(outputName);
 					output.emit(result, requestContext);
