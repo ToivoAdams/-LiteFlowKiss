@@ -19,6 +19,7 @@ import static lite.flow.api.util.ActivityInspector.inspect;
 
 import java.util.concurrent.ExecutorService;
 
+import lite.flow.api.flow.define.Component;
 import lite.flow.api.util.ActivityInspector.EntryPoint;
 import lite.flow.api.util.ActivityInspector.InspectResult;
 import lite.flow.runtime.kiss.data.DataMessage;
@@ -45,14 +46,14 @@ public class RunnableComponent extends SequentialActivity {
 	 * @param logFactory
 	 * @throws ReflectiveOperationException 
 	 */
-	public RunnableComponent(Integer inputQueueLength, ExecutionContext executionContext, LogFactory logFactory, Class<?> componentClazz, ExecutorService executorService) 
+	public RunnableComponent(Integer inputQueueLength, ExecutionContext executionContext, LogFactory logFactory, Component component, ExecutorService executorService) 
 			throws ReflectiveOperationException {
 		super(inputQueueLength, executionContext, logFactory);
 		
-		InspectResult inspectResult = inspect(componentClazz);
+		InspectResult inspectResult = inspect(component.componentClazz);
 		
 		this.methodInvoker = Modifier.addLogging(MethodInvokerSequential.class, executionContext, logFactory)
-				.newInstance(inputQueueLength, executionContext, logFactory, executorService, componentClazz, inspectResult.withoutExplicitOutputPort);
+				.newInstance(inputQueueLength, executionContext, logFactory, executorService, component, inspectResult.withoutExplicitOutputPort);
 
 		correlators = new Correlator[inspectResult.entryPoints.length];
 		int i = 0;

@@ -15,12 +15,14 @@
  */
 package lite.flow.runtime.kiss;
 
+import java.util.Map;
+
 import lite.flow.api.flow.define.Activity;
 import lite.flow.api.flow.define.Flow;
 import lite.log.api.ExecutionContext;
 
 /**
- * Very simple context for testing. 
+ * Simple flow context. 
  * 
  * @author ToivoAdams
  */
@@ -46,6 +48,13 @@ public class FlowExecutionContext implements ExecutionContext {
 	@Override
 	public ExecutionContext forActivity(Activity activity) {
 		return new FlowExecutionContext(flow, activity.name);
+	}
+
+	public Map<String, Object> getResources() {
+		
+		
+		
+		return null;
 	}
 
 	@Override

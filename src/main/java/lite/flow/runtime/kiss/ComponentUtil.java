@@ -17,16 +17,19 @@ package lite.flow.runtime.kiss;
 
 import static java.lang.String.format;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.util.Map;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
 
 import lite.flow.api.activity.Output;
+import lite.flow.api.flow.define.Component;
 
-public class ActivityModifier {
+public class ComponentUtil {
 
 	public static void injectOutput(String outputName, Output<?> output, Object componentInstance) throws IllegalArgumentException, IllegalAccessException {
-		
+
 		Class<?> componentClazz = componentInstance.getClass();
 
 		// find activity all Output type fields
@@ -46,5 +49,37 @@ public class ActivityModifier {
 		throw new IllegalArgumentException(format("Class '%s' do not contain output '%s'", componentClazz.getName(), outputName));
 	}
 	
+	public static Object newInstance(Component component, FlowExecutionContext executionContext) throws ReflectiveOperationException {
+		
+		Class<?> componentClazz = component.componentClazz;
+		Map<String,Object> resources = executionContext.getResources();
+		Map<String,Object> parameters = component.parameters;
+
+		Constructor<?> constructor = pickConstructor(componentClazz, resources, parameters);
+		Object args[] = buildConstructorArgs(constructor, resources, parameters);
+		
+		Object componentInstance = constructor.newInstance(args);
+		
+		return componentInstance;
+	}
+
+	private static Object[] buildConstructorArgs(Constructor<?> constructor, Map<String, Object> resources, Map<String, Object> parameters) {
+		
+		
+		
+		
+		
+		return null;
+	}
+
+	private static Constructor<?> pickConstructor(Class<?> componentClazz, Map<String, Object> resources, Map<String, Object> parameters) {
+		
+		Constructor<?>[] constructors = componentClazz.getConstructors();
+		if (constructors==null || constructors.length<1)
+			throw new IllegalArgumentException(format("Class '%s' don't have public constructors", componentClazz.getName()));
+			
+		return constructors[0];
+	}
+
 
 }

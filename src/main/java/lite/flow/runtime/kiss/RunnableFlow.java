@@ -91,7 +91,7 @@ public class RunnableFlow extends SequentialActivity {
 			if (activity instanceof Component) {
 				Component component = (Component) activity;
 				ExecutionContext activityExecutionContext = executionContext.forActivity(activity);
-				RunnableComponent runnableComponent = new RunnableComponent(inputQueueLength, activityExecutionContext, logFactory, component.clazz, executorService);
+				RunnableComponent runnableComponent = new RunnableComponent(inputQueueLength, activityExecutionContext, logFactory, component, executorService);
 				runnableActivities.put(activity.name, runnableComponent);
 			}
 		}

@@ -13,6 +13,7 @@ import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import lite.flow.api.flow.define.Component;
 import lite.flow.example.component.Adder;
 import lite.flow.example.component.StringSplitter;
 import lite.flow.runtime.kiss.data.DCMessage;
@@ -68,7 +69,8 @@ public class TestRunnableComponent {
 		FlowExecutionContext executionContext = new FlowExecutionContext(null, "stringSplitter");
 		SimpleRequestContext ctx = new SimpleRequestContext();
 
-		RunnableComponent runComp = new RunnableComponent(20, executionContext, logFactory, StringSplitter.class, executorService);
+		Component component = new Component(StringSplitter.class, "StringSplitter", 0, 0);
+		RunnableComponent runComp = new RunnableComponent(20, executionContext, logFactory, component, executorService);
 		runComp.addDestination("outA", new TestConsumer("outA"), "outA");
 		runComp.addDestination("outB", new TestConsumer("outB"), "outB");
 		
@@ -86,7 +88,8 @@ public class TestRunnableComponent {
 		FlowExecutionContext executionContext = new FlowExecutionContext(null, "Adder");
 		SimpleRequestContext ctx = new SimpleRequestContext();
 
-		RunnableComponent runComp = new RunnableComponent(20, executionContext, logFactory, Adder.class, executorService);
+		Component component = new Component(Adder.class, "Adder", 0, 0);
+		RunnableComponent runComp = new RunnableComponent(20, executionContext, logFactory, component, executorService);
 		runComp.addDestination("number", new TestConsumer("number"), "number");
 		
 		executorService.execute(runComp);

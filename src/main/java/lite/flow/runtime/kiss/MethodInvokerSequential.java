@@ -26,6 +26,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 
 import lite.flow.api.activity.RequestContext;
+import lite.flow.api.flow.define.Component;
 import lite.flow.api.util.UniqueId;
 import lite.flow.runtime.kiss.DistributorOutput.Destination;
 import lite.flow.runtime.kiss.data.DataMessage;
@@ -54,21 +55,22 @@ public class MethodInvokerSequential extends SequentialActivity {
 	
 	private final RequestContextCarrier rcc = new RequestContextCarrier();
 	
-	public MethodInvokerSequential(int inputQueueLength, ExecutionContext executionContext, LogFactory logFactory
-			, ExecutorService executorService, Class<?> componentClazz, boolean withoutExplicitOutputPort) throws ReflectiveOperationException {
+	public MethodInvokerSequential(int inputQueueLength, FlowExecutionContext executionContext, LogFactory logFactory
+			, ExecutorService executorService, Component component, boolean withoutExplicitOutputPort) throws ReflectiveOperationException {
 		super(inputQueueLength, executionContext, logFactory);
 		requireNonNull(executionContext, "MethodInvokerSequential executionContext should not be null");
 		requireNonNull(logFactory, 		 "MethodInvokerSequential logFactory should not be null");
 		requireNonNull(executorService,  "MethodInvokerSequential executorService should not be null");		
-		requireNonNull(componentClazz,   "MethodInvokerSequential componentClazz should not be null");		
+		requireNonNull(component,   	 "MethodInvokerSequential component should not be null");		
 
 		this.executorService = executorService;
-		this.componentClazz = componentClazz;
+		this.componentClazz = component.componentClazz;
 		this.withoutExplicitOutputPort = withoutExplicitOutputPort;
 		try {
 	//		this.componentInstance = Modifier.addLoggingBusiness(componentClazz, executionContext, logFactory)
 	//		.newInstance();
-			this.componentInstance = componentClazz.newInstance();
+	//		this.componentInstance = componentClazz.newInstance();
+			this.componentInstance = ComponentUtil.newInstance(component, executionContext);
 	//		ActivityInspector.injectEmitters(new SimpleEmitter(), componentInstance);			
 
 		} catch (InstantiationException | IllegalAccessException e) {
@@ -172,7 +174,7 @@ public class MethodInvokerSequential extends SequentialActivity {
 				// Component is without explicit Output port!
 
 			} else
-				ActivityModifier.injectOutput(outputName, output, componentInstance);
+				ComponentUtil.injectOutput(outputName, output, componentInstance);
 		} catch (IllegalArgumentException | IllegalAccessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
