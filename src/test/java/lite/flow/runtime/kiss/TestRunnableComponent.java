@@ -15,6 +15,7 @@ import org.junit.Test;
 
 import lite.flow.api.flow.define.Component;
 import lite.flow.example.component.Adder;
+import lite.flow.example.component.SqlComponent;
 import lite.flow.example.component.StringSplitter;
 import lite.flow.runtime.kiss.data.DCMessage;
 import lite.flow.runtime.kiss.data.DataMessage;
@@ -97,6 +98,24 @@ public class TestRunnableComponent {
 		assertTrue("enqueue result should be true", result);
 		result 			= runComp.enqueue(new DataMessage<>(ctx, "b", 9));
 		assertTrue("enqueue result should be true", result);
+
+		// give some time to RunnableComponent
+		Thread.sleep(700);
+	}
+
+	@Test
+	public void testComponentWithResource() throws ReflectiveOperationException, InterruptedException {
+		ExecutorService executorService = Executors.newFixedThreadPool(6);
+		FlowExecutionContext executionContext = new FlowExecutionContext(null, "SqlComponent");
+		executionContext.addResource("database", null);
+		
+		SimpleRequestContext ctx = new SimpleRequestContext();
+
+		Component component = new Component(SqlComponent.class, "SqlComponent", 0, 0);
+		RunnableComponent runComp = new RunnableComponent(20, executionContext, logFactory, component, executorService);
+		runComp.addDestination("number", new TestConsumer("number"), "number");
+		
+		executorService.execute(runComp);
 
 		// give some time to RunnableComponent
 		Thread.sleep(700);

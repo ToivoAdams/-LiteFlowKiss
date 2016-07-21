@@ -16,10 +16,13 @@
 package lite.flow.runtime.kiss;
 
 import static java.lang.String.format;
+import static java.util.Objects.requireNonNull;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.Parameter;
 import java.util.Map;
+import java.util.Optional;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
 
@@ -64,12 +67,35 @@ public class ComponentUtil {
 	}
 
 	private static Object[] buildConstructorArgs(Constructor<?> constructor, Map<String, Object> resources, Map<String, Object> parameters) {
+		requireNonNull(resources, "ComponentUtil.buildConstructorArgs resources should not be null");
+		requireNonNull(parameters, "ComponentUtil.buildConstructorArgs parameters should not be null");
 		
+		constructor.getParameterTypes();
 		
+		Parameter[] consParameters = constructor.getParameters();
+		if (consParameters==null || consParameters.length<1)
+			return null;
 		
+		Object[] args = new Object[consParameters.length];
+		for (int i = 0; i < consParameters.length; i++) {
+			Parameter consParam = consParameters[i];
+			Object consParamvalue = getConsParamvalue(consParam, resources, parameters);
+			args[i] = consParamvalue;
+		}
 		
+		return args;
+	}
+
+	private static Object getConsParamvalue(Parameter consParam, Map<String, Object> resources, Map<String, Object> parameters) {
+		String name = consParam.getName();
 		
-		return null;
+		if (resources.containsKey(name))
+			return resources.get(name);
+		
+		if (parameters.containsKey(name))
+			return parameters.get(name);
+		
+		throw new IllegalArgumentException("No resource or parameter is available by name: " + name);
 	}
 
 	private static Constructor<?> pickConstructor(Class<?> componentClazz, Map<String, Object> resources, Map<String, Object> parameters) {

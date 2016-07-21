@@ -15,6 +15,7 @@
  */
 package lite.flow.runtime.kiss;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import lite.flow.api.flow.define.Activity;
@@ -30,7 +31,7 @@ public class FlowExecutionContext implements ExecutionContext {
 
 	public final Flow flow;
 	public final String activityName;
-
+	public final Map<String, Object> resources = new HashMap<>();
 
 	public FlowExecutionContext(Flow flow, String activityName) {
 		super();
@@ -49,12 +50,15 @@ public class FlowExecutionContext implements ExecutionContext {
 	public ExecutionContext forActivity(Activity activity) {
 		return new FlowExecutionContext(flow, activity.name);
 	}
+	
+	public void addResource(String name, Object value) {
+		resources.put(name, value);
+		return;
+	}
+
 
 	public Map<String, Object> getResources() {
-		
-		
-		
-		return null;
+		return resources;
 	}
 
 	@Override
