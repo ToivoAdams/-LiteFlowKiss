@@ -6,6 +6,8 @@ Can be used for testing, experimenting and also as production runtime.
 <br>
 ![LiteFlowApi](../../../LiteFlowApi) contains API for activities and flows creation.
 <br>
+![LiteFlowComponents](../../../LiteFlowComponents) contains common components.
+<br>
 
 ![ExampleFlow](../../../LiteFlowApi/tree/master/docs/images/ConvertAddNumbersFlow.png)
 <br>
