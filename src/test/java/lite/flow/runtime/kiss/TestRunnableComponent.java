@@ -2,6 +2,9 @@ package lite.flow.runtime.kiss;
 
 import static org.junit.Assert.assertTrue;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.ConsoleHandler;
@@ -9,6 +12,10 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.sql.DataSource;
+
+import org.apache.commons.dbcp2.BasicDataSource;
+import org.apache.commons.dbcp2.BasicDataSourceFactory;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -27,6 +34,8 @@ public class TestRunnableComponent {
 
 	static SimpleLogFactory logFactory = new SimpleLogFactory();
 	static Logger log = logFactory.logger(); 
+	
+    final static String DB_LOCATION = "target/db";
 	
 	@BeforeClass
 	static public void setup() {
@@ -104,11 +113,12 @@ public class TestRunnableComponent {
 	}
 
 	@Test
-	public void testComponentWithResource() throws ReflectiveOperationException, InterruptedException {
+	public void testComponentWithResource() throws ReflectiveOperationException, InterruptedException, SQLException {
 		ExecutorService executorService = Executors.newFixedThreadPool(6);
 		FlowExecutionContext executionContext = new FlowExecutionContext(null, "SqlComponent");
-		executionContext.addResource("database", null);
 		
+		executionContext.addResource("database", createDataSource());
+
 		SimpleRequestContext ctx = new SimpleRequestContext();
 
 		Component component = new Component(SqlComponent.class, "SqlComponent", 0, 0);
@@ -121,5 +131,12 @@ public class TestRunnableComponent {
 		Thread.sleep(700);
 	}
 
+    public DataSource createDataSource() throws ClassNotFoundException, SQLException {
+    	
+    	BasicDataSource basicDataSource = new BasicDataSource();
+    	basicDataSource.setDriverClassName("org.apache.derby.jdbc.EmbeddedDriver");
+    	basicDataSource.setUrl("jdbc:derby:" + DB_LOCATION + ";create=true");
+    	return basicDataSource;
+    }
 
 }
