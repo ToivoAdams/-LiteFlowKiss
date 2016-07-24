@@ -28,5 +28,11 @@ public interface ExecutionContext {
 	 */
 	public ExecutionContext addProperty(String name, Object value);
 
+	/**
+	 * 	Creates new execution context for given activity.
+	 * 
+	 * @param activity
+	 * @return
+	 */
 	public ExecutionContext forActivity(Activity activity);
 }

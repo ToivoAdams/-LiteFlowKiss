@@ -18,7 +18,7 @@ package lite.log.simple;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
-import lite.flow.api.util.UniqueId;
+import lite.flow.util.UniqueId;
 import lite.flow.runtime.kiss.data.LongUniqueId;
 import lite.log.api.LogFactory;
 

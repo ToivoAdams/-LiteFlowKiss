@@ -19,8 +19,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Level;
 
-import lite.flow.api.util.UniqueId;
-import lite.flow.api.util.ActivityInspector.EntryPoint;
+import lite.flow.util.UniqueId;
+import lite.flow.util.ActivityInspector.EntryPoint;
 import lite.flow.runtime.kiss.DistributorOutput.Destination;
 import lite.flow.runtime.kiss.data.DataMessage;
 import lite.log.api.ExecutionContext;

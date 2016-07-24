@@ -18,11 +18,13 @@ package lite.log.api.event;
 import java.util.logging.Level;
 
 import lite.flow.api.activity.RequestContext;
-import lite.flow.api.util.UniqueId;
+import lite.flow.util.UniqueId;
 import lite.log.api.ExecutionContext;
 
 /**
  * 	Includes method end (invoke) information, context and output values.
+ * 
+ * Could be also serious Unexpected event. 
  * 
  * @author ToivoAdams
  *

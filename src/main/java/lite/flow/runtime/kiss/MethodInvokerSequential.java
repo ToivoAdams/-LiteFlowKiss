@@ -27,7 +27,7 @@ import java.util.logging.Level;
 
 import lite.flow.api.activity.RequestContext;
 import lite.flow.api.flow.define.Component;
-import lite.flow.api.util.UniqueId;
+import lite.flow.util.UniqueId;
 import lite.flow.runtime.kiss.DistributorOutput.Destination;
 import lite.flow.runtime.kiss.data.DataMessage;
 import lite.log.api.ExecutionContext;
@@ -71,7 +71,6 @@ public class MethodInvokerSequential extends SequentialActivity {
 	//		.newInstance();
 	//		this.componentInstance = componentClazz.newInstance();
 			this.componentInstance = ComponentUtil.newInstance(component, executionContext);
-	//		ActivityInspector.injectEmitters(new SimpleEmitter(), componentInstance);			
 
 		} catch (InstantiationException | IllegalAccessException e) {
 			EndEvent endEvent = new EndEvent(Level.FINE, "create component instance failed", null, executionContext, logFactory.newCid());

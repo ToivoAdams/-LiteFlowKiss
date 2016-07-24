@@ -15,7 +15,7 @@
  */
 package lite.flow.runtime.kiss.data;
 
-import lite.flow.api.util.UniqueId;
+import lite.flow.util.UniqueId;
 
 public class LongUniqueId implements UniqueId {
 	public final long id;

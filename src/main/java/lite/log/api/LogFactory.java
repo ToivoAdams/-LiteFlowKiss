@@ -17,7 +17,7 @@ package lite.log.api;
 
 import java.util.logging.Logger;
 
-import lite.flow.api.util.UniqueId;
+import lite.flow.util.UniqueId;
 
 public interface LogFactory {
 	

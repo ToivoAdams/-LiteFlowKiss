@@ -15,13 +15,13 @@
  */
 package lite.flow.runtime.kiss;
 
-import static lite.flow.api.util.ActivityInspector.inspect;
+import static lite.flow.util.ActivityInspector.inspect;
 
 import java.util.concurrent.ExecutorService;
 
 import lite.flow.api.flow.define.Component;
-import lite.flow.api.util.ActivityInspector.EntryPoint;
-import lite.flow.api.util.ActivityInspector.InspectResult;
+import lite.flow.util.ActivityInspector.EntryPoint;
+import lite.flow.util.ActivityInspector.InspectResult;
 import lite.flow.runtime.kiss.data.DataMessage;
 import lite.log.api.ExecutionContext;
 import lite.log.api.Log;

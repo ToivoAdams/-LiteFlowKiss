@@ -19,7 +19,7 @@ import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
-import lite.flow.api.util.UniqueId;
+import lite.flow.util.UniqueId;
 
 abstract public class EventsBase extends LogRecord {
 

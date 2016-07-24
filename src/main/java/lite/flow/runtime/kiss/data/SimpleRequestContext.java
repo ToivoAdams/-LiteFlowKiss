@@ -18,7 +18,7 @@ package lite.flow.runtime.kiss.data;
 import java.util.concurrent.atomic.AtomicLong;
 
 import lite.flow.api.activity.RequestContext;
-import lite.flow.api.util.UniqueId;
+import lite.flow.util.UniqueId;
 
 
 /**

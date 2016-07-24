@@ -19,8 +19,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Arrays;
 
-import lite.flow.api.util.UniqueId;
-import lite.flow.api.util.ActivityInspector.EntryPoint;
+import lite.flow.util.UniqueId;
+import lite.flow.util.ActivityInspector.EntryPoint;
 import lite.flow.runtime.kiss.data.DataMessage;
 
 /**

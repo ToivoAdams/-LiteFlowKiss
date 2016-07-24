@@ -18,10 +18,16 @@ package lite.log.api.event;
 import java.util.logging.Level;
 
 import lite.flow.api.activity.RequestContext;
-import lite.flow.api.util.UniqueId;
+import lite.flow.util.UniqueId;
 import lite.log.api.ExecutionContext;
 
 /**
+ * 	Normal log records but with context info.
+ * Could be Debug or other not very important information.
+ * 
+ * Could be also serious Unexpected event. 
+ * Note! Fatal Unexpected event should be EndEvent.
+ * 
  * @author ToivoAdams
  *
  */
@@ -45,5 +51,4 @@ public class MiddleEvent extends EventsBase {
 	}
 
 
-	
 }
